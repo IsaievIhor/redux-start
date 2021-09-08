@@ -1,6 +1,8 @@
 import './App.css';
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {addCustomerAction, removeCustomerAction} from "./store/customerReducer";
+import {addCashAction, getCashAction} from "./store/cashReducer";
 
 
 function App() {
@@ -10,11 +12,11 @@ function App() {
 
 console.log(customer)
     const addCash = (cash) => {
-        dispatch({type: 'ADD_CASH', payload: cash})
+        dispatch(addCashAction(cash))
     }
 
     const getCash = (cash) => {
-        dispatch({type: 'GET_CASH', payload: cash})
+        dispatch(getCashAction(cash))
     }
 
     const addCustomer = (name) =>{
@@ -22,11 +24,11 @@ console.log(customer)
             name,
             id: Date.now(),
         }
-        dispatch({type: 'ADD_CUSTOMER', payload: customer})
+        dispatch(addCustomerAction(customer))
     }
     
     const removeCustomer = (customer) => {
-      dispatch({type:'REMOVE_CUSTOMERS', payload: customer.id})
+      dispatch(removeCustomerAction(customer.id))
     }
 
     return (
@@ -35,9 +37,7 @@ console.log(customer)
             <div style={{display: 'flex'}}>
                 <button onClick={() => addCash(Number(prompt()))}>Пополнить счет</button>
                 <button onClick={() => getCash(Number(prompt()))}>Снять со счета</button>
-
                 <button onClick={() => addCustomer(prompt())}>Добавить клиента</button>
-                <button onClick={() => getCash(Number(prompt()))}>Удалить клиента</button>
             </div>
             <div>
                 {customer.length > 0 ?
